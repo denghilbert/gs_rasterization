@@ -505,6 +505,7 @@ __global__ void preprocessCUDA(int P, int D, int M,
 	float p_w = 1.0f / (p_hom.w + 0.0000001f);
 	float3 p_proj = { p_hom.x * p_w, p_hom.y * p_w, p_hom.z * p_w };
     
+    //
     // A test for x/z and y/z before or after intrinsic
     //float3 test = {p_w2c.x / p_w2c.z, p_w2c.y / p_w2c.z, 1};
 	//float4 test_hom = transformPoint4x4(test, intrinsic);
@@ -643,7 +644,9 @@ __global__ void preprocessCUDA(int P, int D, int M,
 	}
 
 	// Store some useful helper data for the next steps.
-	depths[idx] = p_view.z;
+	//depths[idx] = p_view.z;
+    depths[idx] = sqrt((p_orig.x - (*cam_pos).x) * (p_orig.x - (*cam_pos).x) + (p_orig.y - (*cam_pos).y) * (p_orig.y - (*cam_pos).y) + (p_orig.z - (*cam_pos).z) * (p_orig.z - (*cam_pos).z));
+
 	radii[idx] = my_radius;
 	points_xy_image[idx] = point_image;
 	means2Dx[idx] = p_hom.z;

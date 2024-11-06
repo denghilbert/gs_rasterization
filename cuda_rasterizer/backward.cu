@@ -161,6 +161,14 @@ __device__ void computeColorFromSH(int idx, int deg, int max_coeffs, const glm::
 	// that is caused because the mean affects the view-dependent color.
 	// Additional mean gradient is accumulated in below methods.
 	dL_dmeans[idx] += glm::vec3(dL_dmean.x, dL_dmean.y, dL_dmean.z);
+    if (idx == 898411) {
+        printf("++++++++++++\n");
+        printf("computeColorFromSH\n");
+        printf("%f\n", dL_dmean.x);
+        printf("%f\n", dL_dmean.y);
+        printf("%f\n", dL_dmean.z);
+        printf("++++++++++++\n");
+    }
     
     // The derivative of campos is accidentally the reverse direction of the 3d mean derivative.
     // Moving gaussian left == moving cam right
@@ -370,6 +378,14 @@ __global__ void computeCov2DCUDA(int P,
 	// that is caused because the mean affects the covariance matrix.
 	// Additional mean gradient is accumulated in BACKWARD::preprocess.
 	dL_dmeans[idx] = dL_dmean;
+    if (idx == 898411) {
+        printf("++++++++++++\n");
+        printf("computeCov2DCUDA\n");
+        printf("%f\n", dL_dmean.x);
+        printf("%f\n", dL_dmean.y);
+        printf("%f\n", dL_dmean.z);
+        printf("++++++++++++\n");
+    }
 }
 
 // Backward pass for the conversion of scale and rotation to a 
@@ -894,6 +910,14 @@ __global__ void preprocessCUDA(
 	// That's the second part of the mean gradient. Previous computation
 	// of cov2D and following SH conversion also affects it.
 	dL_dmeans[idx] += dL_dmean;
+    if (idx == 898411) {
+        printf("++++++++++++\n");
+        printf("preprocessCUDA1\n");
+        printf("%f\n", dL_dmean.x);
+        printf("%f\n", dL_dmean.y);
+        printf("%f\n", dL_dmean.z);
+        printf("++++++++++++\n");
+    }
 
     // the w must be equal to 1 for view^T * [x,y,z,1]
 	float3 m_view = transformPoint4x3(m, view);
@@ -910,6 +934,14 @@ __global__ void preprocessCUDA(
 	dL_dmeans[idx].x += view[2] * dL_ddepths[idx];
 	dL_dmeans[idx].y += view[6] * dL_ddepths[idx];
 	dL_dmeans[idx].z += view[10] * dL_ddepths[idx];
+    if (idx == 898411) {
+        printf("++++++++++++\n");
+        printf("preprocessCUDA2\n");
+        printf("%f\n", view[2] * dL_ddepths[idx]);
+        printf("%f\n", view[6] * dL_ddepths[idx]);
+        printf("%f\n", view[10] * dL_ddepths[idx]);
+        printf("++++++++++++\n");
+    }
 
 
 	// Compute gradient updates due to computing colors from SHs

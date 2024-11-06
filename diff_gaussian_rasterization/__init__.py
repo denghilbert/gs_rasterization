@@ -170,6 +170,8 @@ class _RasterizeGaussians(torch.autograd.Function):
         else:
             grad_means2D, grad_means2D_densify, grad_colors_precomp, grad_opacities, grad_means3D, grad_cov3Ds_precomp, grad_sh, grad_scales, grad_rotations, grad_camera_center, grad_full_proj, grad_world_view, grad_shift_factors, covariance = _C.rasterize_gaussians_backward(*args)
 
+        print("in __init__ gradient: ")
+        print(grad_means3D[898411])
         # remember to set three gradient to 0 if recovering original 3dgs
         #grad_camera_center = torch.zeros(3).cuda()
         #grad_full_proj = torch.zeros(4, 4).cuda()

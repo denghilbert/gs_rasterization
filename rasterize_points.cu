@@ -252,6 +252,11 @@ std::tuple<torch::Tensor, torch::Tensor, torch::Tensor, torch::Tensor, torch::Te
 
   }
 
+  std::cout << "+++++++++" << std::endl;
+  std::cout << "accumulate" << std::endl;
+  std::cout << (dL_dmeans3D[898411]) << std::endl;
+  std::cout << "+++++++++" << std::endl;
+  //std::cout << "*****************************************************\n" << std::endl;
   // check which points are not processed by cuda kernel
   //std::cout << "*****************************************************\n" << std::endl;
   //std::cout << (dL_dcampos[0][0].item<bool>()) << std::endl;
