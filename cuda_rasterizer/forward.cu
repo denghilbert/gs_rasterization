@@ -644,6 +644,7 @@ __global__ void preprocessCUDA(int P, int D, int M,
 
 	// Store some useful helper data for the next steps.
 	depths[idx] = p_view.z;
+    //depths[idx] = sqrt((p_orig.x - (*cam_pos).x) * (p_orig.x - (*cam_pos).x) + (p_orig.y - (*cam_pos).y) * (p_orig.y - (*cam_pos).y) + (p_orig.z - (*cam_pos).z) * (p_orig.z - (*cam_pos).z));
 	radii[idx] = my_radius;
 	points_xy_image[idx] = point_image;
 	means2Dx[idx] = p_hom.z;
